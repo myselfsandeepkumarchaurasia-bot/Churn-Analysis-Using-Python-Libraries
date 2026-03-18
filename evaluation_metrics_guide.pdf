@@ -1,0 +1,2285 @@
+%PDF-1.4
+%
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2009 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(# Evaluation Techniques for Regression and Classification) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(This guide explains evaluation metrics from beginner to advanced level, with intuition,) Tj
+0 -14 Td
+(formulas, numerical examples, Python code, comparison tables, real-life examples,) Tj
+0 -14 Td
+(interview questions, common mistakes, quick revision notes, a cheat sheet, and practice) Tj
+0 -14 Td
+(questions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 1\) Regression Evaluation Metrics) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Regression is used when the target is a continuous value, such as house price, salary,) Tj
+0 -14 Td
+(sales, demand, or temperature.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(We'll reuse this sample data in several examples:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(- `y_true = [100, 120, 130, 150]`) Tj
+0 -14 Td
+(- `y_pred = [110, 115, 128, 140]`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Errors:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(- `100 - 110 = -10`) Tj
+0 -14 Td
+(- `120 - 115 = 5`) Tj
+0 -14 Td
+(- `130 - 128 = 2`) Tj
+0 -14 Td
+(- `150 - 140 = 10`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.1 MSE ? Mean Squared Error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(MSE batata hai ki model average mein kitna squared error kar raha hai. Pehle actual aur) Tj
+0 -14 Td
+(predicted ka difference nikaalte hain, phir square karte hain, aur phir average lete) Tj
+0 -14 Td
+(hain. Square karne ki wajah se bade errors ko zyada punishment milti hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MSE = \\frac{1}{n} \\sum_{i=1}^{n}\(y_i - \\hat{y}_i\)^2) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Terms) Tj
+0 -14 Td
+(- `n`: number of observations) Tj
+0 -14 Td
+(- `y_i`: actual value) Tj
+0 -14 Td
+(- `\\hat{y}_i`: predicted value) Tj
+0 -14 Td
+(- `\(y_i - \\hat{y}_i\)`: prediction error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Squared errors:) Tj
+0 -14 Td
+(- `\(-10\)^2 = 100`) Tj
+0 -14 Td
+(- `\(5\)^2 = 25`) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 1675 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(- `\(2\)^2 = 4`) Tj
+0 -14 Td
+(- `\(10\)^2 = 100`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Sum = `100 + 25 + 4 + 100 = 229`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MSE = \\frac{229}{4} = 57.25) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import mean_squared_error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [100, 120, 130, 150]) Tj
+0 -14 Td
+(y_pred = [110, 115, 128, 140]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(mse = mean_squared_error\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(mse\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When large errors should be penalized strongly) Tj
+0 -14 Td
+(- When discussing optimization/loss functions) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When business users need easy interpretation in original units) Tj
+0 -14 Td
+(- When outliers dominate the data) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.2 RMSE ? Root Mean Squared Error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(RMSE, MSE ka square root hota hai. Isliye result target variable ki same unit mein aata) Tj
+0 -14 Td
+(hai. Agar house price predict kar rahe ho, to RMSE bhi price units mein hoga.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(RMSE = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}\(y_i - \\hat{y}_i\)^2}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(We already found MSE = `57.25`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(RMSE = \\sqrt{57.25} \\approx 7.57) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 1611 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import mean_squared_error) Tj
+0 -14 Td
+(import numpy as np) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(rmse = np.sqrt\(mean_squared_error\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\(rmse\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When you want error in original units) Tj
+0 -14 Td
+(- When large mistakes matter) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When outliers are too extreme) Tj
+0 -14 Td
+(- When you need percentage-based reporting) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.3 MAE ? Mean Absolute Error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(MAE batata hai ki model average mein kitna absolute error kar raha hai. Isme square nahi) Tj
+0 -14 Td
+(hota, sirf absolute difference liya jata hai, isliye outliers ka effect MSE/RMSE se kam) Tj
+0 -14 Td
+(hota hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MAE = \\frac{1}{n}\\sum_{i=1}^{n}|y_i - \\hat{y}_i|) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Absolute errors:) Tj
+0 -14 Td
+(- `|-10| = 10`) Tj
+0 -14 Td
+(- `|5| = 5`) Tj
+0 -14 Td
+(- `|2| = 2`) Tj
+0 -14 Td
+(- `|10| = 10`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Sum = `27`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MAE = \\frac{27}{4} = 6.75) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import mean_absolute_error) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Length 1721 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(mae = mean_absolute_error\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(mae\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When interpretability matters) Tj
+0 -14 Td
+(- When you want average error directly) Tj
+0 -14 Td
+(- When outliers should not dominate too much) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When large errors must be punished heavily) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.4 R Score ? Coefficient of Determination) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(R batata hai ki model ne target variable ki variability ka kitna hissa explain kiya.) Tj
+0 -14 Td
+(`1` means perfect fit, `0` means baseline mean predictor jaisa performance, and negative) Tj
+0 -14 Td
+(means baseline se bhi worse.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(R^2 = 1 - \\frac{\\sum \(y_i - \\hat{y}_i\)^2}{\\sum \(y_i - \\bar{y}\)^2}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Terms) Tj
+0 -14 Td
+(- `\\bar{y}`: mean of actual values) Tj
+0 -14 Td
+(- numerator: unexplained variation \(RSS\)) Tj
+0 -14 Td
+(- denominator: total variation \(TSS\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Mean of actuals:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(\\bar{y} = \\frac{100 + 120 + 130 + 150}{4} = 125) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(RSS = `229`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(TSS:) Tj
+0 -14 Td
+(- `\(100 - 125\)^2 = 625`) Tj
+0 -14 Td
+(- `\(120 - 125\)^2 = 25`) Tj
+0 -14 Td
+(- `\(130 - 125\)^2 = 25`) Tj
+0 -14 Td
+(- `\(150 - 125\)^2 = 625`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(TSS = `1300`) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Length 1655 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(\\[) Tj
+0 -14 Td
+(R^2 = 1 - \\frac{229}{1300} \\approx 0.824) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import r2_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(r2 = r2_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(r2\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- To explain variance captured by the model) Tj
+0 -14 Td
+(- To compare regression models broadly) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- As the only metric) Tj
+0 -14 Td
+(- When you care more about actual business error size) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.5 Adjusted R) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Regular R extra features add karne par aksar badh jata hai, chahe feature useful ho ya) Tj
+0 -14 Td
+(na ho. Adjusted R useless features ko penalize karta hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Adjusted\\ R^2 = 1 - \\left\( \\frac{\(1-R^2\)\(n-1\)}{n-p-1} \\right\)) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Terms) Tj
+0 -14 Td
+(- `R`: regular coefficient of determination) Tj
+0 -14 Td
+(- `n`: number of observations) Tj
+0 -14 Td
+(- `p`: number of predictors/features) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Assume:) Tj
+0 -14 Td
+(- `R = 0.824`) Tj
+0 -14 Td
+(- `n = 10`) Tj
+0 -14 Td
+(- `p = 2`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Adjusted\\ R^2 = 1 - \\left\( \\frac{\(1 - 0.824\)\(10 - 1\)}{10 - 2 - 1} \\right\)) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Length 1742 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(\\[) Tj
+0 -14 Td
+(= 1 - \\left\( \\frac{0.176 \\times 9}{7} \\right\)) Tj
+0 -14 Td
+(= 1 - 0.2263) Tj
+0 -14 Td
+(= 0.7737) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn/manual code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import r2_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(r2 = r2_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(n = 4) Tj
+0 -14 Td
+(p = 2) Tj
+0 -14 Td
+(adjusted_r2 = 1 - \(\(1 - r2\) * \(n - 1\) / \(n - p - 1\)\)) Tj
+0 -14 Td
+(print\(adjusted_r2\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- Multiple regression) Tj
+0 -14 Td
+(- Feature selection comparison) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When there is only one feature) Tj
+0 -14 Td
+(- When practical error metrics matter more) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1.6 MAPE ? Mean Absolute Percentage Error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(MAPE batata hai ki model average mein kitne percent ka error kar raha hai. Business) Tj
+0 -14 Td
+(dashboards mein ye kaafi popular hota hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MAPE = \\frac{100}{n}\\sum_{i=1}^{n}\\left|\\frac{y_i - \\hat{y}_i}{y_i}\\right|) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(- `|100 - 110| / 100 = 0.10 = 10%`) Tj
+0 -14 Td
+(- `|120 - 115| / 120 = 0.0417 = 4.17%`) Tj
+0 -14 Td
+(- `|130 - 128| / 130 = 0.0154 = 1.54%`) Tj
+0 -14 Td
+(- `|150 - 140| / 150 = 0.0667 = 6.67%`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Average percentage error:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(MAPE = \\frac{10 + 4.17 + 1.54 + 6.67}{4} \\approx 5.60\\%) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 1777 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import mean_absolute_percentage_error) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(mape = mean_absolute_percentage_error\(y_true, y_pred\) * 100) Tj
+0 -14 Td
+(print\(mape\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- Forecasting and business reporting) Tj
+0 -14 Td
+(- When percentage interpretation is useful) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When actual values can be zero or near zero) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 2\) Regression Real-Life Examples) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### House Price Prediction) Tj
+0 -14 Td
+(- MAE tells average price error directly) Tj
+0 -14 Td
+(- RMSE punishes expensive large mistakes more) Tj
+0 -14 Td
+(- R shows how much price variation is explained) Tj
+0 -14 Td
+(- MAPE gives percentage-style error reporting) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Salary Prediction) Tj
+0 -14 Td
+(If a few salary predictions are wildly wrong, RMSE exposes that strongly. If you want a) Tj
+0 -14 Td
+(directly understandable average miss, MAE is often better.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 3\) Classification Evaluation Metrics) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Classification is used when the output is a category, like spam/not spam, disease/no) Tj
+0 -14 Td
+(disease, fraud/not fraud.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(We'll use this confusion matrix example:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(- TP = 40) Tj
+0 -14 Td
+(- TN = 45) Tj
+0 -14 Td
+(- FP = 5) Tj
+0 -14 Td
+(- FN = 10) Tj
+0 -14 Td
+(- Total = 100) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.1 Confusion Matrix) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Length 1982 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(Confusion matrix ek table hota hai jo dikhata hai model ne kaunse predictions sahi kiye) Tj
+0 -14 Td
+(aur kaunse galat.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Terms) Tj
+0 -14 Td
+(- **TP \(True Positive\):** actual positive, predicted positive) Tj
+0 -14 Td
+(- **TN \(True Negative\):** actual negative, predicted negative) Tj
+0 -14 Td
+(- **FP \(False Positive\):** actual negative, predicted positive) Tj
+0 -14 Td
+(- **FN \(False Negative\):** actual positive, predicted negative) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Real-life intuition) Tj
+0 -14 Td
+(- Spam detection: FP means a real email went to spam) Tj
+0 -14 Td
+(- Disease detection: FN means a sick patient was missed) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import confusion_matrix) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [1, 1, 1, 1, 0, 0, 0, 0, 1, 0]) Tj
+0 -14 Td
+(y_pred = [1, 1, 0, 1, 0, 0, 1, 0, 1, 0]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(cm = confusion_matrix\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(cm\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Visualization code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(import matplotlib.pyplot as plt) Tj
+0 -14 Td
+(import seaborn as sns) Tj
+0 -14 Td
+(from sklearn.metrics import confusion_matrix) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(cm = confusion_matrix\(y_true, y_pred\)) Tj
+0 -14 Td
+(sns.heatmap\(cm, annot=True, fmt='d', cmap='Blues',) Tj
+0 -14 Td
+(            xticklabels=['Pred 0', 'Pred 1'],) Tj
+0 -14 Td
+(            yticklabels=['Actual 0', 'Actual 1']\)) Tj
+0 -14 Td
+(plt.xlabel\('Predicted'\)) Tj
+0 -14 Td
+(plt.ylabel\('Actual'\)) Tj
+0 -14 Td
+(plt.title\('Confusion Matrix'\)) Tj
+0 -14 Td
+(plt.show\(\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.2 Accuracy) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Accuracy batata hai total predictions mein se kitni correct thi.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Length 1614 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(\\[) Tj
+0 -14 Td
+(Accuracy = \\frac{TP + TN}{TP + TN + FP + FN}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Accuracy = \\frac{40 + 45}{40 + 45 + 5 + 10} = \\frac{85}{100} = 0.85 = 85\\%) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import accuracy_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(acc = accuracy_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(acc\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- Balanced classes) Tj
+0 -14 Td
+(- Simple overview metric) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- Imbalanced datasets) Tj
+0 -14 Td
+(- Medical/fraud use cases where one error type is dangerous) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.3 Precision) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Precision ka answer: model ne jitni baar positive bola, unmein se kitni baar woh) Tj
+0 -14 Td
+(actually positive tha?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Precision = \\frac{TP}{TP + FP}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Precision = \\frac{40}{40 + 5} = \\frac{40}{45} \\approx 0.8889 = 88.89\\%) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Real-life example) Tj
+0 -14 Td
+(Spam detection mein high precision ka matlab jab model spam bole, to mostly woh sach) Tj
+0 -14 Td
+(mein spam ho.) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Length 1595 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import precision_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(precision = precision_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(precision\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- False positives are costly) Tj
+0 -14 Td
+(- Spam filtering, legal alerts, risk flags) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When missing positives is more dangerous than false alarms) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.4 Recall) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Recall ka answer: actual positive cases mein se model ne kitne pakde?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Recall = \\frac{TP}{TP + FN}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(Recall = \\frac{40}{40 + 10} = \\frac{40}{50} = 0.80 = 80\\%) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Real-life example) Tj
+0 -14 Td
+(Disease screening mein recall high hona chahiye, kyunki sick cases miss karna dangerous) Tj
+0 -14 Td
+(hota hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import recall_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(recall = recall_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(recall\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When false negatives are costly) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Length 1609 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(- Medical screening, fraud detection, security monitoring) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When too many false alarms are unacceptable) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.5 F1-Score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(F1-score precision aur recall ka balanced summary hai. Ye tab useful hai jab dono) Tj
+0 -14 Td
+(important hon.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(F1 = 2 \\cdot \\frac{Precision \\cdot Recall}{Precision + Recall}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Alternative:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(F1 = \\frac{2TP}{2TP + FP + FN}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Using precision = `0.8889` and recall = `0.80`:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(F1 \\approx 2 \\cdot \\frac{0.8889 \\cdot 0.80}{0.8889 + 0.80} \\approx 0.842 = 84.2\\%) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import f1_score) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(f1 = f1_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(print\(f1\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When both precision and recall matter) Tj
+0 -14 Td
+(- When classes are imbalanced and you need one summary metric) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When TN matters a lot and should not be ignored) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Length 1551 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(### 3.6 ROC Curve and AUC) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Many classifiers probability dete hain, sirf final class nahi. Threshold change karne se) Tj
+0 -14 Td
+(TP/FP trade-off change hota hai. ROC curve different thresholds par TPR vs FPR dikhati) Tj
+0 -14 Td
+(hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula pieces) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(TPR = \\frac{TP}{TP + FN}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(FPR = \\frac{FP}{FP + TN}) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(ROC plots `FPR` on x-axis and `TPR` on y-axis.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(AUC means area under the ROC curve.) Tj
+0 -14 Td
+(- `1.0` = perfect) Tj
+0 -14 Td
+(- `0.5` = random guessing) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Small threshold example) Tj
+0 -14 Td
+(Suppose predicted probabilities are:) Tj
+0 -14 Td
+(- positives: `0.90`, `0.80`, `0.60`) Tj
+0 -14 Td
+(- negatives: `0.70`, `0.40`, `0.30`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(At threshold `0.5`:) Tj
+0 -14 Td
+(- TP = 3) Tj
+0 -14 Td
+(- FP = 1) Tj
+0 -14 Td
+(- FN = 0) Tj
+0 -14 Td
+(- TN = 2) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(So:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(TPR = 3/\(3+0\) = 1) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(FPR = 1/\(1+2\) = 0.333) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Different thresholds give different points.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import roc_curve, roc_auc_score) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Length 1827 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(import matplotlib.pyplot as plt) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [1, 1, 0, 1, 0, 0]) Tj
+0 -14 Td
+(y_scores = [0.90, 0.80, 0.70, 0.60, 0.40, 0.30]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(fpr, tpr, thresholds = roc_curve\(y_true, y_scores\)) Tj
+0 -14 Td
+(auc = roc_auc_score\(y_true, y_scores\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(print\(auc\)) Tj
+0 -14 Td
+(plt.plot\(fpr, tpr, marker='o', label=f'AUC = {auc:.2f}'\)) Tj
+0 -14 Td
+(plt.plot\([0, 1], [0, 1], '--', color='gray'\)) Tj
+0 -14 Td
+(plt.xlabel\('False Positive Rate'\)) Tj
+0 -14 Td
+(plt.ylabel\('True Positive Rate'\)) Tj
+0 -14 Td
+(plt.title\('ROC Curve'\)) Tj
+0 -14 Td
+(plt.legend\(\)) Tj
+0 -14 Td
+(plt.show\(\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- Comparing classifiers by ranking ability) Tj
+0 -14 Td
+(- Evaluating across many thresholds) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When the dataset is highly imbalanced and PR metrics are more informative) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3.7 Log Loss) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Simple Hinglish intuition) Tj
+0 -14 Td
+(Log loss evaluate karta hai ki model ne sirf sahi class predict ki ya nahi, balki kitni) Tj
+0 -14 Td
+(confidence se predict ki. Wrong and confident prediction ko heavy punishment milti hai.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Formula) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(LogLoss = -\\frac{1}{n}\\sum_{i=1}^{n}\\left[y_i\\log\(p_i\) + \(1-y_i\)\\log\(1-p_i\)\\right]) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Step-by-step example) Tj
+0 -14 Td
+(Suppose:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(| Actual | Predicted Prob\(1\) |) Tj
+0 -14 Td
+(|---|---:|) Tj
+0 -14 Td
+(| 1 | 0.9 |) Tj
+0 -14 Td
+(| 0 | 0.2 |) Tj
+0 -14 Td
+(| 1 | 0.8 |) Tj
+0 -14 Td
+(| 0 | 0.1 |) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Length 1715 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(Per-row losses are approximately:) Tj
+0 -14 Td
+(- `-log\(0.9\) = 0.105`) Tj
+0 -14 Td
+(- `-log\(0.8\) = 0.223`) Tj
+0 -14 Td
+(- `-log\(0.8\) = 0.223`) Tj
+0 -14 Td
+(- `-log\(0.9\) = 0.105`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Average:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(\\[) Tj
+0 -14 Td
+(LogLoss = \(0.105 + 0.223 + 0.223 + 0.105\)/4 = 0.164) Tj
+0 -14 Td
+(\\]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### sklearn code) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import log_loss) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [1, 0, 1, 0]) Tj
+0 -14 Td
+(y_prob = [0.9, 0.2, 0.8, 0.1]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(loss = log_loss\(y_true, y_prob\)) Tj
+0 -14 Td
+(print\(loss\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When to use) Tj
+0 -14 Td
+(- When probability quality matters) Tj
+0 -14 Td
+(- When calibration/confidence matters) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### When not to use) Tj
+0 -14 Td
+(- When business users only care about final labels) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 4\) Classification Real-Life Examples) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Spam Detection) Tj
+0 -14 Td
+(- Precision important: genuine mail should not go to spam) Tj
+0 -14 Td
+(- Recall also useful: spam should not slip into inbox) Tj
+0 -14 Td
+(- F1 useful if you want balance) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Disease Prediction) Tj
+0 -14 Td
+(- Recall critical: sick patients should not be missed) Tj
+0 -14 Td
+(- Confusion matrix is essential to inspect FN specifically) Tj
+0 -14 Td
+(- Log loss useful if probabilities drive medical review) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 5\) Comparison Tables) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 5.1 Regression Metrics Comparison) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Length 2552 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+() Tj
+0 -14 Td
+(| Metric | Better Direction | Outlier Sensitivity | Easy Interpretation | Best For |) Tj
+0 -14 Td
+(|---|---|---|---|---|) Tj
+0 -14 Td
+(| MSE | Lower | High | Medium | Penalizing large errors |) Tj
+0 -14 Td
+(| RMSE | Lower | High | High | Error in original units |) Tj
+0 -14 Td
+(| MAE | Lower | Lower | Very High | Simple average error |) Tj
+0 -14 Td
+(| R | Higher | Indirect | High | Variance explained |) Tj
+0 -14 Td
+(| Adjusted R | Higher | Indirect | Medium | Multi-feature model comparison |) Tj
+0 -14 Td
+(| MAPE | Lower | Problem near zero actuals | High | Percentage error |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 5.2 Classification Metrics Comparison) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(| Metric | Focus | Best Use | Main Limitation |) Tj
+0 -14 Td
+(|---|---|---|---|) Tj
+0 -14 Td
+(| Accuracy | Overall correctness | Balanced classes | Misleading on imbalance |) Tj
+0 -14 Td
+(| Precision | Positive prediction quality | FP costly | Ignores missed positives |) Tj
+0 -14 Td
+(| Recall | Capture of real positives | FN costly | Can increase FP |) Tj
+0 -14 Td
+(| F1-score | Balance of precision and recall | Both matter | Ignores TN |) Tj
+0 -14 Td
+(| Confusion Matrix | Full error breakdown | Deep diagnosis | Not a single score |) Tj
+0 -14 Td
+(| ROC-AUC | Ranking across thresholds | Compare classifiers | Less informative under) Tj
+0 -14 Td
+(severe imbalance |) Tj
+0 -14 Td
+(| Log Loss | Probability confidence | Probabilistic models | Harder to explain |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 5.3 Which Metric When?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Regression) Tj
+0 -14 Td
+(- Large mistakes matter most ? RMSE / MSE) Tj
+0 -14 Td
+(- Direct average error wanted ? MAE) Tj
+0 -14 Td
+(- Percentage reporting needed ? MAPE) Tj
+0 -14 Td
+(- Explained variance needed ? R) Tj
+0 -14 Td
+(- Comparing models with different predictor counts ? Adjusted R) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(#### Classification) Tj
+0 -14 Td
+(- Balanced data ? Accuracy) Tj
+0 -14 Td
+(- FP costly ? Precision) Tj
+0 -14 Td
+(- FN costly ? Recall) Tj
+0 -14 Td
+(- Both FP and FN matter ? F1-score) Tj
+0 -14 Td
+(- Threshold-free ranking ? ROC-AUC) Tj
+0 -14 Td
+(- Probability quality matters ? Log Loss) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 6\) Important Interview Questions) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Concept-based) Tj
+0 -14 Td
+(1. What is the difference between MAE and RMSE?) Tj
+0 -14 Td
+(2. Can R be negative? Why?) Tj
+0 -14 Td
+(3. Why do we need Adjusted R?) Tj
+0 -14 Td
+(4. Why is accuracy misleading on imbalanced data?) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Length 2310 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(5. Explain precision vs recall in one sentence each.) Tj
+0 -14 Td
+(6. Why does F1-score use harmonic mean?) Tj
+0 -14 Td
+(7. Why can log loss be more informative than accuracy?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Scenario-based) Tj
+0 -14 Td
+(1. For cancer screening, which metric matters most and why?) Tj
+0 -14 Td
+(2. For spam detection, when would you prioritize precision over recall?) Tj
+0 -14 Td
+(3. In house price prediction, when would you report RMSE instead of MAE?) Tj
+0 -14 Td
+(4. In demand forecasting dashboards, why is MAPE popular?) Tj
+0 -14 Td
+(5. How would you compare two regression models with different numbers of features?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Trick questions with short answers) Tj
+0 -14 Td
+(1. Does high accuracy always mean a good model? ? No.) Tj
+0 -14 Td
+(2. Is higher recall always better? ? Not always, because FP may rise.) Tj
+0 -14 Td
+(3. Can precision be 1 while recall is low? ? Yes.) Tj
+0 -14 Td
+(4. Can recall be 1 while precision is low? ? Yes.) Tj
+0 -14 Td
+(5. Does low log loss guarantee highest accuracy? ? No.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 7\) Common Mistakes and Misconceptions) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Regression mistakes) Tj
+0 -14 Td
+(- Looking only at R and ignoring MAE/RMSE) Tj
+0 -14 Td
+(- Using MAPE when actual values are zero) Tj
+0 -14 Td
+(- Treating MAE and RMSE as identical) Tj
+0 -14 Td
+(- Ignoring Adjusted R in multi-feature comparison) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Classification mistakes) Tj
+0 -14 Td
+(- Using accuracy on imbalanced datasets) Tj
+0 -14 Td
+(- Confusing precision and recall) Tj
+0 -14 Td
+(- Assuming F1 is always the best metric) Tj
+0 -14 Td
+(- Ignoring threshold tuning) Tj
+0 -14 Td
+(- Using ROC-AUC blindly for rare-event problems) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 8\) Quick Revision Notes) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Regression) Tj
+0 -14 Td
+(- MSE: squared average error) Tj
+0 -14 Td
+(- RMSE: same-unit version of MSE) Tj
+0 -14 Td
+(- MAE: average absolute error) Tj
+0 -14 Td
+(- R: explained variance) Tj
+0 -14 Td
+(- Adjusted R: penalized R for extra features) Tj
+0 -14 Td
+(- MAPE: percentage error, avoid zeros) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Classification) Tj
+0 -14 Td
+(- Accuracy: overall correct predictions) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Length 2165 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(- Precision: when model says positive, how often is it right?) Tj
+0 -14 Td
+(- Recall: among real positives, how many did it catch?) Tj
+0 -14 Td
+(- F1: balance of precision and recall) Tj
+0 -14 Td
+(- Confusion Matrix: TP, TN, FP, FN breakdown) Tj
+0 -14 Td
+(- ROC-AUC: ranking quality across thresholds) Tj
+0 -14 Td
+(- Log Loss: confidence/probability quality) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 9\) Cheat Sheet) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Regression Cheat Sheet) Tj
+0 -14 Td
+(- `MSE = average\(\(y - y_hat\)^2\)`) Tj
+0 -14 Td
+(- `RMSE = sqrt\(MSE\)`) Tj
+0 -14 Td
+(- `MAE = average\(|y - y_hat|\)`) Tj
+0 -14 Td
+(- `R = 1 - RSS/TSS`) Tj
+0 -14 Td
+(- `Adjusted R = 1 - \(\(1-R\)\(n-1\)/\(n-p-1\)\)`) Tj
+0 -14 Td
+(- `MAPE = average\(|\(y - y_hat\)/y|\) * 100`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Classification Cheat Sheet) Tj
+0 -14 Td
+(- `Accuracy = \(TP + TN\) / Total`) Tj
+0 -14 Td
+(- `Precision = TP / \(TP + FP\)`) Tj
+0 -14 Td
+(- `Recall = TP / \(TP + FN\)`) Tj
+0 -14 Td
+(- `F1 = 2PR / \(P + R\)`) Tj
+0 -14 Td
+(- `TPR = TP / \(TP + FN\)`) Tj
+0 -14 Td
+(- `FPR = FP / \(FP + TN\)`) Tj
+0 -14 Td
+(- `LogLoss = -avg\(y log p + \(1-y\) log\(1-p\)\)`) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 10\) Practice Questions) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Regression practice) Tj
+0 -14 Td
+(1. For `y_true = [50, 60, 70]` and `y_pred = [55, 58, 68]`, calculate MAE, MSE, and) Tj
+0 -14 Td
+(RMSE.) Tj
+0 -14 Td
+(2. Can a model have high R and still poor MAE? Explain with intuition.) Tj
+0 -14 Td
+(3. Why is MAPE unsuitable when actual values include zero?) Tj
+0 -14 Td
+(4. In salary prediction, when would you prefer RMSE over MAE?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Classification practice) Tj
+0 -14 Td
+(1. If TP = 30, TN = 50, FP = 10, FN = 10, calculate Accuracy, Precision, Recall, and) Tj
+0 -14 Td
+(F1-score.) Tj
+0 -14 Td
+(2. In fraud detection, which is worse: FP or FN? Why?) Tj
+0 -14 Td
+(3. Why can 99% accuracy still mean a bad model?) Tj
+0 -14 Td
+(4. How is ROC-AUC different from accuracy?) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 11\) Compact sklearn Reference) Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Length 1961 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+() Tj
+0 -14 Td
+(### Regression metrics) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import \() Tj
+0 -14 Td
+(    mean_squared_error,) Tj
+0 -14 Td
+(    mean_absolute_error,) Tj
+0 -14 Td
+(    r2_score,) Tj
+0 -14 Td
+(    mean_absolute_percentage_error,) Tj
+0 -14 Td
+(\)) Tj
+0 -14 Td
+(import numpy as np) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [100, 120, 130, 150]) Tj
+0 -14 Td
+(y_pred = [110, 115, 128, 140]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(mse = mean_squared_error\(y_true, y_pred\)) Tj
+0 -14 Td
+(rmse = np.sqrt\(mse\)) Tj
+0 -14 Td
+(mae = mean_absolute_error\(y_true, y_pred\)) Tj
+0 -14 Td
+(r2 = r2_score\(y_true, y_pred\)) Tj
+0 -14 Td
+(mape = mean_absolute_percentage_error\(y_true, y_pred\) * 100) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(print\('MSE :', mse\)) Tj
+0 -14 Td
+(print\('RMSE:', rmse\)) Tj
+0 -14 Td
+(print\('MAE :', mae\)) Tj
+0 -14 Td
+(print\('R2  :', r2\)) Tj
+0 -14 Td
+(print\('MAPE:', mape\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Classification metrics) Tj
+0 -14 Td
+(```python) Tj
+0 -14 Td
+(from sklearn.metrics import \() Tj
+0 -14 Td
+(    accuracy_score,) Tj
+0 -14 Td
+(    precision_score,) Tj
+0 -14 Td
+(    recall_score,) Tj
+0 -14 Td
+(    f1_score,) Tj
+0 -14 Td
+(    confusion_matrix,) Tj
+0 -14 Td
+(    roc_auc_score,) Tj
+0 -14 Td
+(    log_loss,) Tj
+0 -14 Td
+(\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(y_true = [1, 1, 1, 1, 0, 0, 0, 0, 1, 0]) Tj
+0 -14 Td
+(y_pred = [1, 1, 0, 1, 0, 0, 1, 0, 1, 0]) Tj
+0 -14 Td
+(y_prob = [0.95, 0.90, 0.40, 0.80, 0.10, 0.20, 0.60, 0.30, 0.85, 0.15]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(print\('Accuracy :', accuracy_score\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\('Precision:', precision_score\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\('Recall   :', recall_score\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\('F1 Score :', f1_score\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\('Confusion Matrix:\\n', confusion_matrix\(y_true, y_pred\)\)) Tj
+0 -14 Td
+(print\('ROC AUC  :', roc_auc_score\(y_true, y_prob\)\)) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Length 2574 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(print\('Log Loss :', log_loss\(y_true, y_prob\)\)) Tj
+0 -14 Td
+(```) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(---) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## 12\) Final 10-Line Summary) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(1. Regression predicts numbers; classification predicts classes.) Tj
+0 -14 Td
+(2. MSE and RMSE punish large errors more strongly.) Tj
+0 -14 Td
+(3. MAE gives average error directly and is easier to explain.) Tj
+0 -14 Td
+(4. R measures how much variance is explained.) Tj
+0 -14 Td
+(5. Adjusted R is better than plain R for comparing models with different feature) Tj
+0 -14 Td
+(counts.) Tj
+0 -14 Td
+(6. MAPE gives percentage error but fails near zero actual values.) Tj
+0 -14 Td
+(7. Accuracy is useful mainly when classes are balanced.) Tj
+0 -14 Td
+(8. Precision is critical when false positives are costly.) Tj
+0 -14 Td
+(9. Recall is critical when false negatives are dangerous.) Tj
+0 -14 Td
+(10. F1 balances precision and recall; ROC-AUC measures ranking; Log Loss measures) Tj
+0 -14 Td
+(probability quality.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(APPENDIX: INTERVIEW Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Evaluation Metrics Interview Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Concept-Based Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 1. What is the difference between MAE and RMSE?) Tj
+0 -14 Td
+(**Answer:** MAE uses absolute errors, so each error contributes linearly. RMSE squares) Tj
+0 -14 Td
+(errors before averaging, so larger errors receive more punishment. Use MAE for simple) Tj
+0 -14 Td
+(average error and RMSE when large misses matter more.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 2. Can R be negative?) Tj
+0 -14 Td
+(**Answer:** Yes. R becomes negative when the model performs worse than simply) Tj
+0 -14 Td
+(predicting the mean of the target for every observation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 3. Why do we need Adjusted R?) Tj
+0 -14 Td
+(**Answer:** Because regular R often increases when more features are added, even if) Tj
+0 -14 Td
+(those features are useless. Adjusted R adds a penalty for unnecessary predictors.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 4. Why can accuracy be misleading?) Tj
+0 -14 Td
+(**Answer:** In imbalanced data, a model can predict the majority class almost always and) Tj
+0 -14 Td
+(still get high accuracy while being practically useless.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 5. Precision vs Recall in one line?) Tj
+0 -14 Td
+(**Answer:** Precision asks, ?When the model predicts positive, how often is it correct??) Tj
+0 -14 Td
+(Recall asks, ?Out of all actual positives, how many did the model catch??) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+21 0 obj
+<< /Length 2866 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(### 6. Why does F1 use harmonic mean?) Tj
+0 -14 Td
+(**Answer:** Because harmonic mean drops sharply when either precision or recall is low,) Tj
+0 -14 Td
+(so it prevents one high value from hiding one weak value.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 7. Why is log loss powerful?) Tj
+0 -14 Td
+(**Answer:** Because it evaluates not only whether the class is correct, but also whether) Tj
+0 -14 Td
+(the predicted probability is sensible and well calibrated.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Scenario-Based Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 8. Which metric matters most in cancer screening?) Tj
+0 -14 Td
+(**Answer:** Recall. Missing a truly sick patient is usually more dangerous than sending) Tj
+0 -14 Td
+(a healthy patient for additional testing.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 9. Which metric matters most in spam detection?) Tj
+0 -14 Td
+(**Answer:** Often precision, because genuine messages should not be wrongly filtered. In) Tj
+0 -14 Td
+(practice F1 is also useful if both spam leakage and false filtering matter.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 10. When should you report RMSE in house price prediction?) Tj
+0 -14 Td
+(**Answer:** When large prediction mistakes should be penalized more strongly and the) Tj
+0 -14 Td
+(stakeholder wants error expressed in actual currency units.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 11. Why is MAPE popular in forecasting dashboards?) Tj
+0 -14 Td
+(**Answer:** Because percentage errors are easy for business teams to interpret and) Tj
+0 -14 Td
+(compare across products or regions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 12. Which metric would you use to compare multiple regression models with different) Tj
+0 -14 Td
+(numbers of predictors?) Tj
+0 -14 Td
+(**Answer:** Adjusted R, because it accounts for the number of predictors while) Tj
+0 -14 Td
+(evaluating explained variance.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Trick Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 13. Does high accuracy always mean a good model?) Tj
+0 -14 Td
+(**Answer:** No. A highly imbalanced problem can show high accuracy even when the model) Tj
+0 -14 Td
+(fails to detect the minority class.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 14. Is higher recall always better?) Tj
+0 -14 Td
+(**Answer:** Not always. Recall can be increased by predicting more positives, but that) Tj
+0 -14 Td
+(may also sharply increase false positives.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 15. Can precision be perfect while recall is poor?) Tj
+0 -14 Td
+(**Answer:** Yes. If the model predicts positive only a few times and all of them are) Tj
+0 -14 Td
+(correct, precision can be 1 while many actual positives are missed.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 16. Can recall be perfect while precision is poor?) Tj
+0 -14 Td
+(**Answer:** Yes. If the model predicts nearly everything as positive, it can catch all) Tj
+0 -14 Td
+(actual positives but create many false positives.) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Length 882 >>
+stream
+BT
+/F1 11 Tf
+50 740 Td
+(### 17. Does low log loss guarantee the highest accuracy?) Tj
+0 -14 Td
+(**Answer:** No. Log loss and accuracy evaluate different things. Accuracy uses hard) Tj
+0 -14 Td
+(labels; log loss uses probability quality.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Short Revision Q&A) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 18. Which regression metric is easiest to explain to business users?) Tj
+0 -14 Td
+(**Answer:** MAE, because it directly says the average prediction is off by a certain) Tj
+0 -14 Td
+(number of units.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 19. Which regression metric is most sensitive to outliers?) Tj
+0 -14 Td
+(**Answer:** MSE, and therefore RMSE as well.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### 20. Which classification metric should you inspect first before all others?) Tj
+0 -14 Td
+(**Answer:** The confusion matrix, because it reveals the exact pattern of errors.) Tj
+ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+24 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+25 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+26 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 5 0 R >>
+endobj
+27 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+28 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 7 0 R >>
+endobj
+29 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+30 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 9 0 R >>
+endobj
+31 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 10 0 R >>
+endobj
+32 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 11 0 R >>
+endobj
+33 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 12 0 R >>
+endobj
+34 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 13 0 R >>
+endobj
+35 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 14 0 R >>
+endobj
+36 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 15 0 R >>
+endobj
+37 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 16 0 R >>
+endobj
+38 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 17 0 R >>
+endobj
+39 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 18 0 R >>
+endobj
+40 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 19 0 R >>
+endobj
+41 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 20 0 R >>
+endobj
+42 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 21 0 R >>
+endobj
+43 0 obj
+<< /Type /Page /Parent 44 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 22 0 R >>
+endobj
+44 0 obj
+<< /Type /Pages /Kids [23 0 R 24 0 R 25 0 R 26 0 R 27 0 R 28 0 R 29 0 R 30 0 R 31 0 R 32 0 R 33 0 R 34 0 R 35 0 R 36 0 R 37 0 R 38 0 R 39 0 R 40 0 R 41 0 R 42 0 R 43 0 R] /Count 21 >>
+endobj
+45 0 obj
+<< /Type /Catalog /Pages 44 0 R >>
+endobj
+xref
+0 46
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000002146 00000 n 
+0000003873 00000 n 
+0000005536 00000 n 
+0000007309 00000 n 
+0000009016 00000 n 
+0000010810 00000 n 
+0000012639 00000 n 
+0000014673 00000 n 
+0000016340 00000 n 
+0000017988 00000 n 
+0000019650 00000 n 
+0000021254 00000 n 
+0000023134 00000 n 
+0000024902 00000 n 
+0000027507 00000 n 
+0000029870 00000 n 
+0000032088 00000 n 
+0000034102 00000 n 
+0000036729 00000 n 
+0000039648 00000 n 
+0000040582 00000 n 
+0000040710 00000 n 
+0000040838 00000 n 
+0000040966 00000 n 
+0000041094 00000 n 
+0000041222 00000 n 
+0000041350 00000 n 
+0000041478 00000 n 
+0000041606 00000 n 
+0000041735 00000 n 
+0000041864 00000 n 
+0000041993 00000 n 
+0000042122 00000 n 
+0000042251 00000 n 
+0000042380 00000 n 
+0000042509 00000 n 
+0000042638 00000 n 
+0000042767 00000 n 
+0000042896 00000 n 
+0000043025 00000 n 
+0000043154 00000 n 
+0000043283 00000 n 
+0000043483 00000 n 
+trailer
+<< /Size 46 /Root 45 0 R >>
+startxref
+43534
+%%EOF
